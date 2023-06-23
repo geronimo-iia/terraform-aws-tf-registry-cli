@@ -1,0 +1,869 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="reference/">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+    
+    
+      
+        <title>aws-terraform-registry-cli</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.26e3688c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aws-terraform-registry" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="aws-terraform-registry-cli" class="md-header__button md-logo" aria-label="aws-terraform-registry-cli" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            aws-terraform-registry-cli
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/geronimo-iia/terraform-aws-tf-registry-cli" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    geronimo-iia/terraform-aws-tf-registry-cli
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="aws-terraform-registry-cli" class="md-nav__button md-logo" aria-label="aws-terraform-registry-cli" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    aws-terraform-registry-cli
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/geronimo-iia/terraform-aws-tf-registry-cli" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    geronimo-iia/terraform-aws-tf-registry-cli
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Home
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yaml-configuration" class="md-nav__link">
+    YAML configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variable" class="md-nav__link">
+    Environment variable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    Authentication
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-a-jwt-token" class="md-nav__link">
+    Obtain a JWT token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-terraform-with-your-private-registry" class="md-nav__link">
+    Configure terraform with your private registry
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform-publication" class="md-nav__link">
+    Terraform &amp; Publication
+  </a>
+  
+    <nav class="md-nav" aria-label="Terraform & Publication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#publish-command" class="md-nav__link">
+    Publish command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-command" class="md-nav__link">
+    Release command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/" class="md-nav__link">
+        Reference
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="code_of_conduct/" class="md-nav__link">
+        Code of conduct
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/geronimo-iia/terraform-aws-tf-registry-cli" class="md-nav__link">
+        Github
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yaml-configuration" class="md-nav__link">
+    YAML configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variable" class="md-nav__link">
+    Environment variable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    Authentication
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-a-jwt-token" class="md-nav__link">
+    Obtain a JWT token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-terraform-with-your-private-registry" class="md-nav__link">
+    Configure terraform with your private registry
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform-publication" class="md-nav__link">
+    Terraform &amp; Publication
+  </a>
+  
+    <nav class="md-nav" aria-label="Terraform & Publication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#publish-command" class="md-nav__link">
+    Publish command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-command" class="md-nav__link">
+    Release command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<!-- BEGIN INCLUDE ../README.md -->
+<h1 id="aws-terraform-registry">aws-terraform-registry</h1>
+<p><a href="https://pypi.org/project/aws-terraform-registry"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/aws-terraform-registry.svg" /></a>
+<a href="https://pypi.org/project/aws-terraform-registry"><img alt="PyPI License" src="https://img.shields.io/pypi/l/aws-terraform-registry.svg" /></a></p>
+<p>Versions following <a href="https://semver.org/">Semantic Versioning</a></p>
+<h2 id="overview">Overview</h2>
+<p>This project create a python client which work with <a href="https://github.com/geronimo-iia/terraform-aws-tf-registry">AWS Terraform Private Registry</a>.</p>
+<p>Features:</p>
+<ul>
+<li>Show client configuration (for debug purpose)</li>
+<li>Authentication:<ul>
+<li>JWT Token generation</li>
+<li>.terraformrc generation to configure Devops workstation</li>
+</ul>
+</li>
+<li>Terraform module publication from external storage (like a githb module release)</li>
+<li>Terraform module release (more detail on it below) to store every module inside default bucket of the <a href="https://github.com/geronimo-iia/terraform-aws-tf-registry">AWS Terraform Private Registry</a>..</li>
+</ul>
+<p>See <a href="https://geronimo-iia.github.io/aws-terraform-tf-registry-cli">documentation</a>.</p>
+<p>The <a href="https://github.com/geronimo-iia/terraform-aws-tf-registry">AWS Terraform Private Registry</a> follow this Architectural design:</p>
+<p><img alt="Architecture" src="registry.png" /></p>
+<h2 id="installation">Installation</h2>
+<p>Install this library directly into an activated virtual environment:</p>
+<pre><code class="language-text">$ python3 -m pip install terraform-aws-tf-registry-cli
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>We have to provide few informations to this client :</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secret_key_name</td>
+<td>AWS Secret manager name where JWT Secret is stored</td>
+</tr>
+<tr>
+<td>repository_url</td>
+<td>HTTPS endpoint of the registry</td>
+</tr>
+<tr>
+<td>dynamodb_table_name</td>
+<td>AWS dynamodb table name</td>
+</tr>
+<tr>
+<td>bucket_name</td>
+<td>bucket name</td>
+</tr>
+<tr>
+<td>default_namespace</td>
+<td>default namespace to publish terraform module ("devops" per default)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>All this information can come from several way (choose the rigth for you):</p>
+<ul>
+<li>from a yaml configuration file </li>
+<li>from environment variable</li>
+</ul>
+<blockquote>
+<p>Yaml configuration can be overriden with environment variable.</p>
+</blockquote>
+<h3 id="yaml-configuration">YAML configuration</h3>
+<p>The default file name is <code>terraform_registry.yaml</code>, you can override this with <code>TFR_CONFIG_FILE</code> environmentt variable.</p>
+<p>To find thie configuratin file, directories will be lookup in this order:</p>
+<ul>
+<li>user home directory</li>
+<li>command line directory</li>
+<li><code>/etc/tfr</code> </li>
+</ul>
+<h3 id="environment-variable">Environment variable</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Enviromnent variable name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secret_key_name</td>
+<td>TFR_SECRET_KEY_NAME</td>
+</tr>
+<tr>
+<td>repository_url</td>
+<td>TFR_REPOSITORY_URL</td>
+</tr>
+<tr>
+<td>dynamodb_table_name</td>
+<td>TFR_DYNAMODB_TABLE_NAME</td>
+</tr>
+<tr>
+<td>bucket_name</td>
+<td>TFR_BUCKET_NAME</td>
+</tr>
+<tr>
+<td>default_namespace</td>
+<td>TFR_DEFAULT_NAMESPACE</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>All environment variable can be set with <code>.env</code> file inside your command line directory.</p>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-bash">&gt; tfr
+usage: tfr [-h] {config,generate-token,generate-terraformrc,publish,release} ...
+
+Manage terraform registry
+
+positional arguments:
+  {config,generate-token,generate-terraformrc,publish,release}
+                        commands
+    config              Show configuration parameters
+    generate-token      Generate an access token
+    generate-terraformrc
+                        Generate terraformrc configuration file
+    publish             Publish a terraform module from custom source.
+    release             Release a terraform module from custom source.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  ```
+
+### Configuration
+
+You can print what the python client use as configuration with the command :
+
+`tfr config`
+
+Example with an empty configuration:
+
+```bash
+bucket_name: null
+default_namespace: devops
+dynamodb_table_name: null
+repository_url: null
+secret_key_name: null
+</code></pre>
+<h3 id="authentication">Authentication</h3>
+<h4 id="obtain-a-jwt-token">Obtain a JWT token</h4>
+<p>Command :</p>
+<pre><code class="language-bash">usage: tfr generate-token [-h] [-weeks WEEKS]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -weeks WEEKS, --weeks WEEKS
+                        #weeks of validity (52 per default)
+</code></pre>
+<h4 id="configure-terraform-with-your-private-registry">Configure terraform with your private registry</h4>
+<p>Users must create <code>.terraformrc</code> file in their $HOME directory, with this content:</p>
+<pre><code class="language-hcl">credentials &quot;registry.my-domain.com&quot; {
+    token = &quot;Mytoken&quot;
+}
+</code></pre>
+<p>Command :</p>
+<pre><code class="language-bash">usage: tfr generate-terraformrc [-h] -output-directory OUTPUT_DIRECTORY [-weeks WEEKS]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -output-directory OUTPUT_DIRECTORY, --output-directory OUTPUT_DIRECTORY
+                        output directory
+  -weeks WEEKS, --weeks WEEKS
+                        #weeks of validity (52 per default)
+
+</code></pre>
+<h2 id="terraform-publication">Terraform &amp; Publication</h2>
+<p>You have two way to publish a module, using:</p>
+<ul>
+<li><code>publish</code></li>
+<li><code>release</code></li>
+</ul>
+<p>What's the difference ?</p>
+<blockquote>
+<p><code>publish</code>: register the source module as is in the aws private terraform regstry. You could have access issue if this url is not public.</p>
+<p><code>release</code>: </p>
+<ul>
+<li>store the source into the dedicated bucket of aws private terraform regstry. The access is managed within registry.</li>
+<li>archive (targ.gz) if the source is a folder</li>
+<li>download the source if it's an http utl</li>
+</ul>
+</blockquote>
+<p>We use <code>release</code> from our ci/cd pipeline and <code>publish</code> when we have to do something like 'quick and dirty' ... (It never happen, I swear !)</p>
+<h3 id="publish-command">Publish command</h3>
+<pre><code class="language-bash">usage: tfr publish [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -namespace NAMESPACE, --namespace NAMESPACE
+                        module namespace
+  -name NAME, --name NAME
+                        module name
+  -system SYSTEM, --system SYSTEM
+                        module system (aws, ...)
+  -version VERSION, --version VERSION
+                        module version
+  -source SOURCE, --source SOURCE
+                        module source
+</code></pre>
+<h3 id="release-command">Release command</h3>
+<pre><code class="language-bash">usage: tfr release [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -namespace NAMESPACE, --namespace NAMESPACE
+                        module namespace
+  -name NAME, --name NAME
+                        module name
+  -system SYSTEM, --system SYSTEM
+                        module system (aws, ...)
+  -version VERSION, --version VERSION
+                        module version
+  -source SOURCE, --source SOURCE
+                        module source
+</code></pre>
+<!-- END INCLUDE -->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tracking", "navigation.path", "navigation.instant"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.a51614de.min.js"></script>
+      
+    
+  </body>
+</html>
