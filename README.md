@@ -10,6 +10,7 @@ Versions following [Semantic Versioning](https://semver.org/)
 This project create a python client which work with [AWS Terraform Private Registry](https://github.com/geronimo-iia/terraform-aws-tf-registry).
 
 Features:
+
 - Show client configuration (for debug purpose)
 - Authentication:
     - JWT Token generation
@@ -30,7 +31,7 @@ The [AWS Terraform Private Registry](https://github.com/geronimo-iia/terraform-a
 Install this library directly into an activated virtual environment:
 
 ```text
-$ pip install terraform-aws-tf-registry-cli
+$ python3 -m pip install terraform-aws-tf-registry-cli
 ```
 
 ## Configuration
@@ -44,7 +45,7 @@ We have to provide few informations to this client :
 | repository_url      | HTTPS endpoint of the registry                                      |
 | dynamodb_table_name | AWS dynamodb table name                                             |
 | bucket_name         | bucket name                                                         |
-| default_namespace   | default namespace to publish terrafor module ("devops" per default) |
+| default_namespace   | default namespace to publish terraform module ("devops" per default) |
 |                     |                                                                     |
 
 
@@ -53,14 +54,15 @@ All this information can come from several way (choose the rigth for you):
 - from a yaml configuration file 
 - from environment variable
 
-> Yaml configuration can be ovveriden with environment variable.
+> Yaml configuration can be overriden with environment variable.
 
 
 ### YAML configuration
 
-The default file name is `terraform_registry.yaml`, you can ovveride this with `TFR_CONFIG_FILE` environmentt variable.
+The default file name is `terraform_registry.yaml`, you can override this with `TFR_CONFIG_FILE` environmentt variable.
 
 To find thie configuratin file, directories will be lookup in this order:
+
 - user home directory
 - command line directory
 - `/etc/tfr` 
@@ -167,10 +169,11 @@ You have two way to publish a module, using:
 
 What's the difference ?
 
-> `publish`: register the source module as is in the aws private terraform regstry. You could have access issue it this url is not public.
+> `publish`: register the source module as is in the aws private terraform regstry. You could have access issue if this url is not public.
 
 > `release`: 
->    - store the source into the dedicated bucket of aws private terraform regstry. The access is managed wth the registry.
+>
+>    - store the source into the dedicated bucket of aws private terraform regstry. The access is managed within registry.
 >    - archive (targ.gz) if the source is a folder
 >    - download the source if it's an http utl
 

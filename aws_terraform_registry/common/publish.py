@@ -13,6 +13,18 @@ __all__ = ["publish_module"]
 def publish_module(
     config: ApplicationConfig, terraform_module: TerraformModuleIdentifier, version: str, source: str
 ) -> str:
+    """Publish terraform module.
+
+    Args:
+
+        config (ApplicationConfig): application configuration
+        terraform_module (TerraformModuleIdentifier): module identifier
+        version (str): version to publish
+        source (str): module source
+
+    Returns:
+        str: source
+    """
     config.validate()
     client('dynamodb').put_item(
         TableName=config.dynamodb_table_name,

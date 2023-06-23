@@ -10,7 +10,16 @@ from ..config import ApplicationConfig
 __all__ = ["generate_token", "generate_terraformrc", "get_secret"]
 
 # mypy: disable-error-code="arg-type"
-def generate_token(config: ApplicationConfig, weeks: int = 1):
+def generate_token(config: ApplicationConfig, weeks: int = 1) -> str:
+    """Generate a JWT tokecm.
+
+    Args:
+        config (ApplicationConfig): application configuration.
+        weeks (int, optional): weeks of validity (1 per default).
+
+    Returns:
+        str: encoded jwt token
+    """
     config.validate()
     token = get_secret(secret_key_name=config.secret_key_name)
     return jwt.encode(
@@ -22,6 +31,14 @@ def generate_token(config: ApplicationConfig, weeks: int = 1):
 
 # mypy: disable-error-code="arg-type"
 def generate_terraformrc(config: ApplicationConfig, output_directory: str, weeks: int = 52):
+    """Generate terraform_rc file.
+
+    Args:
+        config (ApplicationConfig): application configuration.
+        output_directory (str): directory where to wrote the .terraform_rc.
+        weeks (int, optional): weeks of validity (52 per default).
+
+    """
     config.validate()
     with open(os.path.join(output_directory, ".terraformrc"), "w") as f:
         f.write(

@@ -21,7 +21,8 @@ class ApplicationConfig:
     """Define aws terraform private registry parameters.
 
 
-    Attrubutes:
+    Attributes:
+
         secret_key_name (str): AWS Secret manager name where JWT Secret is stored
         repository_url (str): HTTPS endpoint of the registry
         dynamodb_table_name (str): dynamodb table name
@@ -44,7 +45,7 @@ class ApplicationConfig:
         load_env(self, prefix='tfr')
 
     def validate(self):
-        """Validate each attribut.
+        """Validate each attributs.
 
         Raise:
             (RuntimeError): if an attribut is empty

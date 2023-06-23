@@ -7,12 +7,13 @@ __all__ = ['TerraformModuleIdentifier']
 class TerraformModuleIdentifier:
     """Define a Terraform Module Identifier.
 
-    Attributs:
-    namespace: is the name of a namespace, unique on a particular hostname,
-        that can contain one or more modules that are somehow related.
-    name:  the module name
-    system: the name of a remote system that the module is primarily written to target,
-        like aws or azurerm
+    Attributes:
+
+        namespace (str): is the name of a namespace, unique on a particular hostname,
+            that can contain one or more modules that are somehow related.
+        name (str):  the module name
+        system (str): the name of a remote system that the module is primarily written to target,
+            like aws or azurerm
     """
 
     namespace: str

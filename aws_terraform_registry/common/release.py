@@ -27,10 +27,11 @@ def release_module(
 
     This source will be send to the default bucket and publish onto the registry.
 
-    Parameters:
+    Args:
+
         config (ApplicationConfig): application configuration
         terraform_module (TerraformModuleIdentifier): module identifier
-        version(str): version to publish
+        version (str): version to publish
         source (str): module source
 
     Raise:

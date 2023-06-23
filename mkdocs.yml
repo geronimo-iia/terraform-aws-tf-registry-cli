@@ -1,4 +1,4 @@
-site_name: aws-terraform-registry
+site_name: aws-terraform-registry-cli
 repo_url: https://github.com/geronimo-iia/terraform-aws-tf-registry-cli
 repo_name: geronimo-iia/terraform-aws-tf-registry-cli
 
