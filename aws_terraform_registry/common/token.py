@@ -40,10 +40,11 @@ def generate_terraformrc(config: ApplicationConfig, output_directory: str, weeks
 
     """
     config.validate()
+    hostmane = config.repository_url[config.repository_url.index("://") + 3:  -1]
     with open(os.path.join(output_directory, ".terraformrc"), "w") as f:
         f.write(
             f"""
-credentials "{config.repository_url}" {{
+credentials "{hostmane}" {{
     token = "{generate_token(config=config, weeks=weeks)}"
 }}
 """
