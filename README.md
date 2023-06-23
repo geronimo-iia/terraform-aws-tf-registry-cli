@@ -1,4 +1,4 @@
-# aws-terraform-registry
+# aws-terraform-registry-cli
 
 [![PyPI Version](https://img.shields.io/pypi/v/aws-terraform-registry.svg)](https://pypi.org/project/aws-terraform-registry)
 [![PyPI License](https://img.shields.io/pypi/l/aws-terraform-registry.svg)](https://pypi.org/project/aws-terraform-registry)
