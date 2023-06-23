@@ -30,10 +30,9 @@ class TerraformModuleIdentifier:
 
     def get_publish_url(self, bucket_name: str, version: str) -> str:
         """Return s3 url."""
-        return ".".join(
+        return "/".join(
             [
-                f"s3::https://{bucket_name}",
-                "s3",
-                "/".join(["amazonaws.com", self.get_bucket_key(version=version)]),
+                f"s3::https://{bucket_name}.s3-eu-west-1.amazonaws.com",
+                self.get_bucket_key(version=version)
             ]
         )
