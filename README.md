@@ -19,7 +19,7 @@ Features:
 - Terraform module release (more detail on it below) to store every module inside default bucket of the [AWS Terraform Private Registry](https://github.com/geronimo-iia/terraform-aws-tf-registry)..
 
 
-See [documentation](https://geronimo-iia.github.io/aws-terraform-tf-registry-cli).
+See [documentation](https://geronimo-iia.github.io/terraform-aws-tf-registry-cli/).
 
 The [AWS Terraform Private Registry](https://github.com/geronimo-iia/terraform-aws-tf-registry) follow this Architectural design:
 
