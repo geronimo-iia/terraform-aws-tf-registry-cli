@@ -54,6 +54,7 @@ mkdocs-include-markdown-plugin = "^4.0.4"
 
 [tool.poetry.group.dev.dependencies]
 types-pyyaml = "^6.0.12.10"
+pytest-mock = "^3.11.1"
 
 [tool.black]
 # see https://black.readthedocs.io/en/stable/

@@ -13,13 +13,18 @@ def test_tf_bucket_key():
     assert tf_id.get_bucket_key(version="1.0.0") == "devops/kms/aws/1.0.0/archive.tar.gz"
 
 
-def test_tf_publish_url():
-    tf_id = TerraformModuleIdentifier(namespace="devops", name="kms", system="aws")
+def test_tf_publish_url(mocker):
 
+    mocker.patch("aws_terraform_registry.common.model._find_caller_region", return_value="eu-west-1")
+    tf_id = TerraformModuleIdentifier(namespace="devops", name="kms", system="aws")
     assert (
         tf_id.get_publish_url(bucket_name="mybucket", version="1.0.0")
         == "s3::https://mybucket.s3-eu-west-1.amazonaws.com/devops/kms/aws/1.0.0/archive.tar.gz"
-    ) or (
+    )
+
+    mocker.patch("aws_terraform_registry.common.model._find_caller_region", return_value="us-east-1")
+    tf_id = TerraformModuleIdentifier(namespace="devops", name="kms", system="aws")
+    assert (
         tf_id.get_publish_url(bucket_name="mybucket", version="1.0.0")
         == "s3::https://mybucket.s3.amazonaws.com/devops/kms/aws/1.0.0/archive.tar.gz"
     )
