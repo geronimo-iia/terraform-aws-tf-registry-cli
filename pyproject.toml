@@ -1,0 +1,112 @@
+[tool.poetry]
+name = "aws_terraform_registry"
+version = "0.0.1"
+description = "Python client tool for aws private terraform registry."
+license = "MIT"
+authors = ["Jerome Guibert <jguibert@gmail.com>"]
+readme = "README.md"
+homepage = "https://pypi.org/project/terraform-aws-tf-registry-cli"
+documentation = "https://geronimo-iia.github.io/terraform-aws-tf-registry-cli/"
+repository = "https://github.com/geronimo-iia/terraform-aws-tf-registry-cli"
+keywords = []
+classifiers = [
+    # update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+boto3 = "^1.26.157"
+pyjwt = "^2.7.0"
+pyyaml = "^6.0"
+envclasses = "^0.3.1"
+python-dotenv = "^1.0.0"
+crayons = "^0.4.0"
+
+[tool.poetry.dev-dependencies]
+black = "22.3.0"             # The uncompromising code formatter.
+isort = "5.9.3"              #A Python utility / library to sort Python imports.
+ruff = "^0.0.264"
+mypy = "*"
+types-setuptools = "^67.7.0"
+
+# Unit Testing
+pytest = "^7"                                   # pytest: simple powerful testing with Python
+pytest-cov = "^4"                               # Pytest plugin for measuring coverage.
+pytest-mock = "^3"
+xdoctest = "^0.15.0"                            # A rewrite of the builtin doctest module
+coverage = { version = "*", extras = ["toml"] }
+
+# Documentation
+mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
+mkdocstrings = { extras = ["python"], version = "^0.21.2" }
+mkdocs-material = "^9.1.9"
+mkdocs-include-markdown-plugin = "^4.0.4"
+
+
+[tool.poetry.group.dev.dependencies]
+types-pyyaml = "^6.0.12.10"
+
+[tool.black]
+# see https://black.readthedocs.io/en/stable/
+line_length = 120
+target-version = ["py38"]
+skip-string-normalization = true
+
+[tool.isort]
+# see https://timothycrosley.github.io/isort/
+line_length = 120
+combine_as_imports = true
+multi_line_output = 3
+include_trailing_comma = true
+use_parentheses = true
+force_grid_wrap = 0
+ensure_newline_before_comments = true
+
+[tool.coverage.paths]
+source = ["aws_terraform_registry"]
+
+[tool.coverage.run]
+# see https://coverage.readthedocs.io/en/coverage-5.0.3/config.html
+branch = true
+data_file = ".cache/coverage"
+source = ["aws_terraform_registry"]
+omit = ["tests/*", ".venv/*", "*/__main__.py"]
+
+[tool.coverage.report]
+# see https://coverage.readthedocs.io/en/coverage-5.0.3/config.html
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers --pdbcls=tests:Debugger -r sxX --cov=aws_terraform_registry --cov-report=html --cov-report=term-missing:skip-covered"
+cache_dir = ".cache"
+
+[tool.ruff]
+cache-dir = ".cache/ruff"
+line-length = 120
+
+[tool.mypy]
+cache_dir = ".cache/mypy/"
+check_untyped_defs = true
+ignore_errors = false
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+
+[build-system]
+requires = ["poetry>=1.1.12"]
+build-backend = "poetry.masonry.api"
+
+# Exqmple
+[tool.poetry.scripts]
+tfr = "aws_terraform_registry.cli:main"

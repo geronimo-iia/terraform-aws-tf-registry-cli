@@ -1,0 +1,26 @@
+site_name: aws-terraform-registry
+repo_url: https://github.com/geronimo-iia/terraform-aws-tf-registry-cli
+repo_name: geronimo-iia/terraform-aws-tf-registry-cli
+
+theme:
+  name: "material"
+  features:
+    - navigation.tracking
+    - navigation.path
+    - navigation.instant
+
+
+plugins:
+  - include-markdown
+  - mkdocstrings
+  - search
+
+nav:
+  - index.md
+  - reference.md
+  - changelog.md
+  - license.md
+  - contributing.md
+  - code_of_conduct.md
+  - 'Github': 'https://github.com/geronimo-iia/terraform-aws-tf-registry-cli'
+
