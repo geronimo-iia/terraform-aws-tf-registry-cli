@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from boto3 import client
+
 __all__ = ['TerraformModuleIdentifier']
 
 
@@ -30,9 +32,8 @@ class TerraformModuleIdentifier:
 
     def get_publish_url(self, bucket_name: str, version: str) -> str:
         """Return s3 url."""
+        region = client('s3').meta.region_name
+        bucket_sub_name = f"s3-{region}" if region != "us-east-1" else "s3"
         return "/".join(
-            [
-                f"s3::https://{bucket_name}.s3-eu-west-1.amazonaws.com",
-                self.get_bucket_key(version=version)
-            ]
+            [f"s3::https://{bucket_name}.{bucket_sub_name}.amazonaws.com", self.get_bucket_key(version=version)]
         )

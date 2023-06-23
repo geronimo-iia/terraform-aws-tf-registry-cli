@@ -18,5 +18,5 @@ def test_tf_publish_url():
 
     assert (
         tf_id.get_publish_url(bucket_name="mybucket", version="1.0.0")
-        == "s3::https://mybucket.s3.amazonaws.com/devops/kms/aws/1.0.0/archive.tar.gz"
+        == "s3::https://mybucket.s3-eu-west-1.amazonaws.com/devops/kms/aws/1.0.0/archive.tar.gz"
     )
