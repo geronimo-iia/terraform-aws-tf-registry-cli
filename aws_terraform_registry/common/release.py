@@ -6,7 +6,7 @@ from pathlib import Path
 from boto3 import client
 
 from ..config import ApplicationConfig
-from .model import TerraformModuleIdentifier
+from .model import BUCKET_FILE_NAME, TerraformModuleIdentifier
 from .publish import publish_module
 
 logger = getLogger()
@@ -55,7 +55,8 @@ def release_module(
 
         send_s3_from_dir(config=config, archive_dir=_source, s3_key=s3_key)
 
-    publish_url = terraform_module.get_publish_url(bucket_name=config.bucket_name, version=version)
+    # publish_url = terraform_module.get_publish_url(bucket_name=config.bucket_name, version=version)
+    publish_url = terraform_module.get_blob_url(repository_url=config.repository_url, version=version)
     logger.debug(f"url: {publish_url}")
     publish_module(config=config, terraform_module=terraform_module, version=version, source=publish_url)
 
@@ -69,7 +70,7 @@ def send_s3_from_file(config: ApplicationConfig, archive_file: str, s3_key: str)
 
 
 def send_s3_from_dir(config: ApplicationConfig, archive_dir: str, s3_key: str):
-    archive_file = Path.cwd() / "archive.tar.gz"
+    archive_file = Path.cwd() / BUCKET_FILE_NAME
     try:
         with tarfile.open(archive_file, "w:gz") as tar:
             tar.add(archive_dir, arcname=".", filter=lambda a: a if not a.name.startswith("./.") else None)
@@ -80,7 +81,7 @@ def send_s3_from_dir(config: ApplicationConfig, archive_dir: str, s3_key: str):
 
 def send_s3_from_url(config: ApplicationConfig, source_url: str, s3_key: str):
     opener = urllib.request.build_opener()
-    archive_file = Path.cwd() / "archive.tar.gz"
+    archive_file = Path.cwd() / BUCKET_FILE_NAME
     try:
         with open(archive_file, "wb") as archive:
             with opener.open(source_url) as object_data:

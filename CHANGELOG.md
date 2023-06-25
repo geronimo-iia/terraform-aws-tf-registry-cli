@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.0 (next)
+
+- use blob api to expose released terraform module into dedicated bucket.
+
 ## 1.0.0 (2023-06-21)
 
 Feat:

@@ -175,7 +175,8 @@ What's the difference ?
 >
 >    - store the source into the dedicated bucket of aws private terraform regstry. The access is managed within registry.
 >    - archive (targ.gz) if the source is a folder
->    - download the source if it's an http utl
+>    - download the source if it's an http url
+>    - use 'blob' api registry as download link (which act as a proxy on s3)
 
 We use `release` from our ci/cd pipeline and `publish` when we have to do something like 'quick and dirty' ... (It never happen, I swear !)
 
