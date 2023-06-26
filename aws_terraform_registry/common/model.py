@@ -3,7 +3,9 @@ from dataclasses import dataclass
 
 from boto3 import client
 
-__all__ = ['TerraformModuleIdentifier']
+__all__ = ['TerraformModuleIdentifier', 'BUCKET_FILE_NAME']
+
+BUCKET_FILE_NAME = "archive.tar.gz"
 
 
 @dataclass()
@@ -29,7 +31,7 @@ class TerraformModuleIdentifier:
 
     def get_bucket_key(self, version: str) -> str:
         """Return bucket key."""
-        return f"{self.module_id}/{version}/archive.tar.gz"
+        return f"{self.module_id}/{version}/{BUCKET_FILE_NAME}"
 
     def get_publish_url(self, bucket_name: str, version: str) -> str:
         """Return s3 url."""
@@ -39,6 +41,10 @@ class TerraformModuleIdentifier:
         return "/".join(
             [f"s3::https://{bucket_name}.{bucket_sub_name}.amazonaws.com", self.get_bucket_key(version=version)]
         )
+
+    def get_blob_url(self, repository_url: str, version: str) -> str:
+        """Return registry url with blob api."""
+        return "/".join([repository_url, "blob", self.get_bucket_key(version=version)])
 
 
 def _find_caller_region() -> str:

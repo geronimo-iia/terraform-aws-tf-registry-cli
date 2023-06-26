@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.1.0 (next)
+
+Feat:
+
+- Check if module ever exists before publishing or release.
+- Add 'unpublish' command
+
+Test:
+
+- Add blob api experimental api to expose released terraform module into dedicated bucket.
+
 ## 1.0.0 (2023-06-21)
 
 Feat:

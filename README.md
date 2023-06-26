@@ -91,14 +91,15 @@ usage: tfr [-h] {config,generate-token,generate-terraformrc,publish,release} ...
 Manage terraform registry
 
 positional arguments:
-  {config,generate-token,generate-terraformrc,publish,release}
+  {config,generate-token,generate-terraformrc,release,unpublish,publish}
                         commands
     config              Show configuration parameters
     generate-token      Generate an access token
     generate-terraformrc
                         Generate terraformrc configuration file
-    publish             Publish a terraform module from custom source.
     release             Release a terraform module from custom source.
+    publish             Publish a terraform module from custom source.
+    unpublish           Unpublish a terraform module (Keep archive on s3).
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -175,9 +176,48 @@ What's the difference ?
 >
 >    - store the source into the dedicated bucket of aws private terraform regstry. The access is managed within registry.
 >    - archive (targ.gz) if the source is a folder
->    - download the source if it's an http utl
+>    - download the source if it's an http url
+>    - As your module will be stored within registry bucket, terraform client will use s3 signed url
 
-We use `release` from our ci/cd pipeline and `publish` when we have to do something like 'quick and dirty' ... (It never happen, I swear !)
+We use `release` from our ci/cd pipeline and `publish` only when we have to do something like 'quick and dirty' ... (It never happen, I swear !)
+
+### Release command
+
+```bash
+usage: tfr release [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -namespace NAMESPACE, --namespace NAMESPACE
+                        module namespace
+  -name NAME, --name NAME
+                        module name
+  -system SYSTEM, --system SYSTEM
+                        module system (aws, ...)
+  -version VERSION, --version VERSION
+                        module version
+  -source SOURCE, --source SOURCE
+                        module source
+```
+
+### Unpublish command
+
+```bash
+usage: tfr unpublish [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -namespace NAMESPACE, --namespace NAMESPACE
+                        module namespace
+  -name NAME, --name NAME
+                        module name
+  -system SYSTEM, --system SYSTEM
+                        module system (aws, ...)
+  -version VERSION, --version VERSION
+                        module version
+  -source SOURCE, --source SOURCE
+                        module source
+```
 
 
 ### Publish command
@@ -199,23 +239,5 @@ optional arguments:
                         module source
 ```
 
-### Release command
-
-```bash
-usage: tfr release [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -namespace NAMESPACE, --namespace NAMESPACE
-                        module namespace
-  -name NAME, --name NAME
-                        module name
-  -system SYSTEM, --system SYSTEM
-                        module system (aws, ...)
-  -version VERSION, --version VERSION
-                        module version
-  -source SOURCE, --source SOURCE
-                        module source
-```
 
 

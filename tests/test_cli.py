@@ -47,6 +47,23 @@ def test_cli_publish():
     )
 
 
+def test_cli_unpublish():
+    parser = build_parser(config=ApplicationConfig.lookup())
+    assert "func" in parser.parse_args(
+        [
+            "unpublish",
+            "--namespace",
+            "devops",
+            "--name",
+            "kms",
+            "--system",
+            "aws",
+            "--version",
+            "1.0.0",
+        ]
+    )
+
+
 def test_cli_release():
     parser = build_parser(config=ApplicationConfig.lookup())
     assert "func" in parser.parse_args(

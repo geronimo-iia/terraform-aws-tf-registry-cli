@@ -44,6 +44,10 @@ class ApplicationConfig:
         # Feed from env var
         load_env(self, prefix='tfr')
 
+        # remove ending '/'
+        if self.repository_url and self.repository_url.endswith('/'):
+            self.repository_url = self.repository_url[0:-2]
+
     def validate(self):
         """Validate each attributs.
 
