@@ -70,9 +70,10 @@ def unpublish_module(config: ApplicationConfig, terraform_module: TerraformModul
 
     client('dynamodb').delete_item(
         TableName=config.dynamodb_table_name,
-        Key={"Id": {"S": terraform_module.module_id}},
-        ConditionExpression="Version = :version",
-        ExpressionAttributeValues={":version": {"S": version}},
+        Key={
+            "Id": {"S": terraform_module.module_id},
+            "Version": {"S": version},
+        },
     )
     logger.info(f"Unpublished module {terraform_module.module_id}, Version {version}")
 
@@ -82,4 +83,4 @@ def exists(config: ApplicationConfig, terraform_module: TerraformModuleIdentifie
     response = dynamodb_client.get_item(
         TableName=config.dynamodb_table_name, Key={'Id': {'S': terraform_module.module_id}, 'Version': {'S': version}}
     )
-    return response['Item'] is not None
+    return 'Item' in response
