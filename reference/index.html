@@ -362,6 +362,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#aws_terraform_registry.unpublish_module" class="md-nav__link">
+    unpublish_module()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -575,6 +582,13 @@
         <li class="md-nav__item">
   <a href="#aws_terraform_registry.release_module" class="md-nav__link">
     release_module()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws_terraform_registry.unpublish_module" class="md-nav__link">
+    unpublish_module()
   </a>
   
 </li>
@@ -1942,6 +1956,161 @@ like aws or azurerm</p>
     <span class="n">publish_module</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">terraform_module</span><span class="o">=</span><span class="n">terraform_module</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">publish_url</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">publish_url</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="aws_terraform_registry.unpublish_module" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">unpublish_module</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">terraform_module</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>UnPublish terraform module.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>config</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="aws_terraform_registry.config.ApplicationConfig" href="#aws_terraform_registry.ApplicationConfig">ApplicationConfig</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>application configuration</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>terraform_module</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="aws_terraform_registry.common.model.TerraformModuleIdentifier" href="#aws_terraform_registry.TerraformModuleIdentifier">TerraformModuleIdentifier</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>module identifier</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>version</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>version to publish</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>RuntimeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>if specified version and module did not exists.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>aws_terraform_registry/common/publish.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">unpublish_module</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ApplicationConfig</span><span class="p">,</span> <span class="n">terraform_module</span><span class="p">:</span> <span class="n">TerraformModuleIdentifier</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;UnPublish terraform module.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        config (ApplicationConfig): application configuration</span>
+<span class="sd">        terraform_module (TerraformModuleIdentifier): module identifier</span>
+<span class="sd">        version (str): version to publish</span>
+
+
+<span class="sd">    Raises:</span>
+<span class="sd">        (RuntimeError): if specified version and module did not exists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">terraform_module</span><span class="o">=</span><span class="n">terraform_module</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Version </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2"> for module </span><span class="si">{</span><span class="n">terraform_module</span><span class="o">.</span><span class="n">module_id</span><span class="si">}</span><span class="s2"> did not exist&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">client</span><span class="p">(</span><span class="s1">&#39;dynamodb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">delete_item</span><span class="p">(</span>
+        <span class="n">TableName</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">dynamodb_table_name</span><span class="p">,</span>
+        <span class="n">Key</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;Id&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="n">terraform_module</span><span class="o">.</span><span class="n">module_id</span><span class="p">},</span>
+            <span class="s2">&quot;Version&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="n">version</span><span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unpublished module </span><span class="si">{</span><span class="n">terraform_module</span><span class="o">.</span><span class="n">module_id</span><span class="si">}</span><span class="s2">, Version </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
