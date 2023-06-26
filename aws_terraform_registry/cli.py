@@ -9,6 +9,7 @@ from .common import (
     init_root_logger,
     publish_module,
     release_module,
+    unpublish_module,
 )
 from .config import ApplicationConfig
 
@@ -37,7 +38,14 @@ def build_parser(config: ApplicationConfig):
     parser = argparse.ArgumentParser(prog="tfr", description="Manage terraform registry")
     subparsers = parser.add_subparsers(help='commands')
 
-    for item in [_define_config, _define_generate, _define_terraformrc, _define_publish, _define_release]:
+    for item in [
+        _define_config,
+        _define_generate,
+        _define_terraformrc,
+        _define_release,
+        _define_publish,
+        _define_unpublish,
+    ]:
         item(subparsers, config)
 
     return parser
@@ -106,6 +114,22 @@ def _define_publish(subparsers, config: ApplicationConfig):
     )
 
 
+def _define_unpublish(subparsers, config: ApplicationConfig):
+    parser = subparsers.add_parser('unpublish', help='Unpublish a terraform module (Keep archive on s3).')
+    _add_common_terraform_module_identifier_args(parser=parser)
+    parser.set_defaults(
+        func=lambda args: unpublish_module(
+            config=config,
+            terraform_module=TerraformModuleIdentifier(
+                namespace=args.namespace if args.namespace else config.default_namespace,
+                name=args.name,
+                system=args.system,
+            ),
+            version=args.version,
+        )
+    )
+
+
 def _define_release(subparsers, config: ApplicationConfig):
     parser = subparsers.add_parser('release', help='Release a terraform module from custom source.')
     _add_common_terraform_module_args(parser=parser)
@@ -134,7 +158,7 @@ def _add_weeks_arg(parser):
     )
 
 
-def _add_common_terraform_module_args(parser):
+def _add_common_terraform_module_identifier_args(parser):
     parser.add_argument(
         "-namespace", "--namespace", action="store", type=str, help="module namespace", required=False, default=None
     )
@@ -143,4 +167,8 @@ def _add_common_terraform_module_args(parser):
         "-system", "--system", action="store", type=str, help="module system (aws, azure, ...)", required=True
     )
     parser.add_argument("-version", "--version", action="store", type=str, help="module version", required=True)
+
+
+def _add_common_terraform_module_args(parser):
+    _add_common_terraform_module_identifier_args(parser=parser)
     parser.add_argument("-source", "--source", action="store", type=str, help="module source", required=True)

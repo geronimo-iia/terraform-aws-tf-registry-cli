@@ -2,7 +2,14 @@
 
 ## 1.1.0 (next)
 
-- use blob api to expose released terraform module into dedicated bucket.
+Feat:
+
+- Check if module ever exists before publishing or release.
+- Add 'unpublish' command
+
+Test:
+
+- Add blob api experimental api to expose released terraform module into dedicated bucket.
 
 ## 1.0.0 (2023-06-21)
 

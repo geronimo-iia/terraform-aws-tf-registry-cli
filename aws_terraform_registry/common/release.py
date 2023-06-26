@@ -7,7 +7,7 @@ from boto3 import client
 
 from ..config import ApplicationConfig
 from .model import BUCKET_FILE_NAME, TerraformModuleIdentifier
-from .publish import publish_module
+from .publish import exists, publish_module
 
 logger = getLogger()
 
@@ -35,11 +35,16 @@ def release_module(
         source (str): module source
 
     Raise:
-        (RuntimeError): if source did not exists
+        (RuntimeError): if source did not exists or if specified version and module is ever published.
     """
     config.validate()
     # remove the v
     version = version if not version.lower().startswith("v") else version[1:]
+
+    if exists(config=config, terraform_module=terraform_module, version=version):
+        msg = f"Version {version} for module {terraform_module.module_id} ever exist"
+        logger.error(msg)
+        raise RuntimeError(msg)
 
     s3_key = terraform_module.get_bucket_key(version=version)
     logger.debug(f"Put module archive to {s3_key}")
@@ -55,8 +60,9 @@ def release_module(
 
         send_s3_from_dir(config=config, archive_dir=_source, s3_key=s3_key)
 
-    # publish_url = terraform_module.get_publish_url(bucket_name=config.bucket_name, version=version)
-    publish_url = terraform_module.get_blob_url(repository_url=config.repository_url, version=version)
+    publish_url = terraform_module.get_publish_url(bucket_name=config.bucket_name, version=version)
+    # experimental API
+    # publish_url = terraform_module.get_blob_url(repository_url=config.repository_url, version=version)
     logger.debug(f"url: {publish_url}")
     publish_module(config=config, terraform_module=terraform_module, version=version, source=publish_url)
 
