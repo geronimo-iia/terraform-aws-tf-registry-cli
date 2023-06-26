@@ -329,15 +329,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#publish-command" class="md-nav__link">
-    Publish command
+  <a href="#release-command" class="md-nav__link">
+    Release command
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#release-command" class="md-nav__link">
-    Release command
+  <a href="#unpublish-command" class="md-nav__link">
+    Unpublish command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-command" class="md-nav__link">
+    Publish command
   </a>
   
 </li>
@@ -561,15 +568,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#publish-command" class="md-nav__link">
-    Publish command
+  <a href="#release-command" class="md-nav__link">
+    Release command
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#release-command" class="md-nav__link">
-    Release command
+  <a href="#unpublish-command" class="md-nav__link">
+    Unpublish command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-command" class="md-nav__link">
+    Publish command
   </a>
   
 </li>
@@ -717,14 +731,15 @@ usage: tfr [-h] {config,generate-token,generate-terraformrc,publish,release} ...
 Manage terraform registry
 
 positional arguments:
-  {config,generate-token,generate-terraformrc,publish,release}
+  {config,generate-token,generate-terraformrc,release,unpublish,publish}
                         commands
     config              Show configuration parameters
     generate-token      Generate an access token
     generate-terraformrc
                         Generate terraformrc configuration file
-    publish             Publish a terraform module from custom source.
     release             Release a terraform module from custom source.
+    publish             Publish a terraform module from custom source.
+    unpublish           Unpublish a terraform module (Keep archive on s3).
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -785,12 +800,13 @@ optional arguments:
 <ul>
 <li>store the source into the dedicated bucket of aws private terraform regstry. The access is managed within registry.</li>
 <li>archive (targ.gz) if the source is a folder</li>
-<li>download the source if it's an http utl</li>
+<li>download the source if it's an http url</li>
+<li>As your module will be stored within registry bucket, terraform client will use s3 signed url</li>
 </ul>
 </blockquote>
-<p>We use <code>release</code> from our ci/cd pipeline and <code>publish</code> when we have to do something like 'quick and dirty' ... (It never happen, I swear !)</p>
-<h3 id="publish-command">Publish command</h3>
-<pre><code class="language-bash">usage: tfr publish [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
+<p>We use <code>release</code> from our ci/cd pipeline and <code>publish</code> only when we have to do something like 'quick and dirty' ... (It never happen, I swear !)</p>
+<h3 id="release-command">Release command</h3>
+<pre><code class="language-bash">usage: tfr release [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -805,8 +821,24 @@ optional arguments:
   -source SOURCE, --source SOURCE
                         module source
 </code></pre>
-<h3 id="release-command">Release command</h3>
-<pre><code class="language-bash">usage: tfr release [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
+<h3 id="unpublish-command">Unpublish command</h3>
+<pre><code class="language-bash">usage: tfr unpublish [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -namespace NAMESPACE, --namespace NAMESPACE
+                        module namespace
+  -name NAME, --name NAME
+                        module name
+  -system SYSTEM, --system SYSTEM
+                        module system (aws, ...)
+  -version VERSION, --version VERSION
+                        module version
+  -source SOURCE, --source SOURCE
+                        module source
+</code></pre>
+<h3 id="publish-command">Publish command</h3>
+<pre><code class="language-bash">usage: tfr publish [-h] [-namespace NAMESPACE] -name NAME -system SYSTEM -version VERSION -source SOURCE
 
 optional arguments:
   -h, --help            show this help message and exit

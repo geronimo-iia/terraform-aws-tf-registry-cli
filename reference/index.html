@@ -302,6 +302,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#aws_terraform_registry.common.model.TerraformModuleIdentifier.get_blob_url" class="md-nav__link">
+    get_blob_url()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#aws_terraform_registry.common.model.TerraformModuleIdentifier.get_bucket_key" class="md-nav__link">
     get_bucket_key()
   </a>
@@ -510,6 +517,13 @@
   
     <nav class="md-nav" aria-label="TerraformModuleIdentifier">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws_terraform_registry.common.model.TerraformModuleIdentifier.get_blob_url" class="md-nav__link">
+    get_blob_url()
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#aws_terraform_registry.common.model.TerraformModuleIdentifier.get_bucket_key" class="md-nav__link">
@@ -757,7 +771,11 @@
 <span class="normal">76</span>
 <span class="normal">77</span>
 <span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@envclass</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@envclass</span>
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">ApplicationConfig</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Define aws terraform private registry parameters.</span>
@@ -785,6 +803,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Feed from env var</span>
         <span class="n">load_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;tfr&#39;</span><span class="p">)</span>
+
+        <span class="c1"># remove ending &#39;/&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository_url</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository_url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repository_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository_url</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate each attributs.</span>
@@ -857,13 +879,21 @@
 <span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Finalize configuration.</span>
 
 <span class="sd">    Feed attributs from TFR_xxxx env variable if exists.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Feed from env var</span>
     <span class="n">load_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;tfr&#39;</span><span class="p">)</span>
+
+    <span class="c1"># remove ending &#39;/&#39;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository_url</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository_url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repository_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository_url</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
@@ -890,11 +920,11 @@
 
       <details class="quote">
         <summary>Source code in <code>aws_terraform_registry/config.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">load_from</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ApplicationConfig&#39;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load ApplicationConfig from a yaml file.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -925,17 +955,17 @@
 </details>
       <details class="quote">
         <summary>Source code in <code>aws_terraform_registry/config.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
-<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate each attributs.</span>
 
 <span class="sd">    Raise:</span>
@@ -1031,9 +1061,7 @@ like aws or azurerm</p>
 
         <details class="quote">
           <summary>Source code in <code>aws_terraform_registry/common/model.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
@@ -1063,7 +1091,13 @@ like aws or azurerm</p>
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">()</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">()</span>
 <span class="k">class</span> <span class="nc">TerraformModuleIdentifier</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Define a Terraform Module Identifier.</span>
 
@@ -1086,7 +1120,7 @@ like aws or azurerm</p>
 
     <span class="k">def</span> <span class="nf">get_bucket_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return bucket key.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">/archive.tar.gz&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">BUCKET_FILE_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">def</span> <span class="nf">get_publish_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return s3 url.&quot;&quot;&quot;</span>
@@ -1096,6 +1130,10 @@ like aws or azurerm</p>
         <span class="k">return</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;s3::https://</span><span class="si">{</span><span class="n">bucket_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">bucket_sub_name</span><span class="si">}</span><span class="s2">.amazonaws.com&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bucket_key</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)]</span>
         <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_blob_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return registry url with blob api.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">repository_url</span><span class="p">,</span> <span class="s2">&quot;blob&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bucket_key</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)])</span>
 </code></pre></div></td></tr></table></div>
         </details>
 
@@ -1115,6 +1153,33 @@ like aws or azurerm</p>
 
 
 
+<h3 id="aws_terraform_registry.common.model.TerraformModuleIdentifier.get_blob_url" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_blob_url</span><span class="p">(</span><span class="n">repository_url</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return registry url with blob api.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>aws_terraform_registry/common/model.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_blob_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return registry url with blob api.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">repository_url</span><span class="p">,</span> <span class="s2">&quot;blob&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bucket_key</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)])</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
 <h3 id="aws_terraform_registry.common.model.TerraformModuleIdentifier.get_bucket_key" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_bucket_key</span><span class="p">(</span><span class="n">version</span><span class="p">)</span></code>
 
@@ -1127,11 +1192,11 @@ like aws or azurerm</p>
 
       <details class="quote">
         <summary>Source code in <code>aws_terraform_registry/common/model.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_bucket_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_bucket_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return bucket key.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">/archive.tar.gz&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">BUCKET_FILE_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
@@ -1154,14 +1219,14 @@ like aws or azurerm</p>
 
       <details class="quote">
         <summary>Source code in <code>aws_terraform_registry/common/model.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_publish_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_publish_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return s3 url.&quot;&quot;&quot;</span>
 
     <span class="n">region</span> <span class="o">=</span> <span class="n">_find_caller_region</span><span class="p">()</span>
@@ -1200,20 +1265,34 @@ like aws or azurerm</p>
 
       <details class="quote">
         <summary>Source code in <code>aws_terraform_registry/cli.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
-<span class="normal">36</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">build_parser</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ApplicationConfig</span><span class="p">):</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">build_parser</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ApplicationConfig</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Build arguments parser.&quot;&quot;&quot;</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&quot;tfr&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Manage terraform registry&quot;</span><span class="p">)</span>
     <span class="n">subparsers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s1">&#39;commands&#39;</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="n">_define_config</span><span class="p">,</span> <span class="n">_define_generate</span><span class="p">,</span> <span class="n">_define_terraformrc</span><span class="p">,</span> <span class="n">_define_publish</span><span class="p">,</span> <span class="n">_define_release</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="n">_define_config</span><span class="p">,</span>
+        <span class="n">_define_generate</span><span class="p">,</span>
+        <span class="n">_define_terraformrc</span><span class="p">,</span>
+        <span class="n">_define_release</span><span class="p">,</span>
+        <span class="n">_define_publish</span><span class="p">,</span>
+        <span class="n">_define_unpublish</span><span class="p">,</span>
+    <span class="p">]:</span>
         <span class="n">item</span><span class="p">(</span><span class="n">subparsers</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">parser</span>
@@ -1565,6 +1644,28 @@ like aws or azurerm</p>
     </tbody>
   </table>
 
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>RuntimeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>if specified version and module is ever published.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
       <details class="quote">
         <summary>Source code in <code>aws_terraform_registry/common/publish.py</code></summary>
         <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
@@ -1592,7 +1693,16 @@ like aws or azurerm</p>
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
-<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">publish_module</span><span class="p">(</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">publish_module</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">ApplicationConfig</span><span class="p">,</span> <span class="n">terraform_module</span><span class="p">:</span> <span class="n">TerraformModuleIdentifier</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Publish terraform module.</span>
@@ -1606,8 +1716,17 @@ like aws or azurerm</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: source</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        (RuntimeError): if specified version and module is ever published.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">config</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">terraform_module</span><span class="o">=</span><span class="n">terraform_module</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Version </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2"> for module </span><span class="si">{</span><span class="n">terraform_module</span><span class="o">.</span><span class="n">module_id</span><span class="si">}</span><span class="s2"> ever exist&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
     <span class="n">client</span><span class="p">(</span><span class="s1">&#39;dynamodb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">put_item</span><span class="p">(</span>
         <span class="n">TableName</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">dynamodb_table_name</span><span class="p">,</span>
         <span class="n">Item</span><span class="o">=</span><span class="p">{</span>
@@ -1716,7 +1835,7 @@ like aws or azurerm</p>
 
 <details class="raise" open>
   <summary>Raise</summary>
-  <p>(RuntimeError): if source did not exists</p>
+  <p>(RuntimeError): if source did not exists or if specified version and module is ever published.</p>
 </details>
       <details class="quote">
         <summary>Source code in <code>aws_terraform_registry/common/release.py</code></summary>
@@ -1764,7 +1883,14 @@ like aws or azurerm</p>
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">release_module</span><span class="p">(</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">release_module</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">ApplicationConfig</span><span class="p">,</span> <span class="n">terraform_module</span><span class="p">:</span> <span class="n">TerraformModuleIdentifier</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Release a terraform module.</span>
@@ -1784,11 +1910,16 @@ like aws or azurerm</p>
 <span class="sd">        source (str): module source</span>
 
 <span class="sd">    Raise:</span>
-<span class="sd">        (RuntimeError): if source did not exists</span>
+<span class="sd">        (RuntimeError): if source did not exists or if specified version and module is ever published.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">config</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
     <span class="c1"># remove the v</span>
     <span class="n">version</span> <span class="o">=</span> <span class="n">version</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">version</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;v&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">version</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">terraform_module</span><span class="o">=</span><span class="n">terraform_module</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Version </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2"> for module </span><span class="si">{</span><span class="n">terraform_module</span><span class="o">.</span><span class="n">module_id</span><span class="si">}</span><span class="s2"> ever exist&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">s3_key</span> <span class="o">=</span> <span class="n">terraform_module</span><span class="o">.</span><span class="n">get_bucket_key</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Put module archive to </span><span class="si">{</span><span class="n">s3_key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1805,6 +1936,8 @@ like aws or azurerm</p>
         <span class="n">send_s3_from_dir</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">archive_dir</span><span class="o">=</span><span class="n">_source</span><span class="p">,</span> <span class="n">s3_key</span><span class="o">=</span><span class="n">s3_key</span><span class="p">)</span>
 
     <span class="n">publish_url</span> <span class="o">=</span> <span class="n">terraform_module</span><span class="o">.</span><span class="n">get_publish_url</span><span class="p">(</span><span class="n">bucket_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span>
+    <span class="c1"># experimental API</span>
+    <span class="c1"># publish_url = terraform_module.get_blob_url(repository_url=config.repository_url, version=version)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;url: </span><span class="si">{</span><span class="n">publish_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">publish_module</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">terraform_module</span><span class="o">=</span><span class="n">terraform_module</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">publish_url</span><span class="p">)</span>
 
