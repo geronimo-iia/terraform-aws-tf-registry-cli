@@ -215,8 +215,6 @@ optional arguments:
                         module system (aws, ...)
   -version VERSION, --version VERSION
                         module version
-  -source SOURCE, --source SOURCE
-                        module source
 ```
 
 
