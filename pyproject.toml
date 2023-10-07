@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aws_terraform_registry"
-version = "1.1.0"
+version = "1.1.1"
 description = "Python client tool for aws private terraform registry."
 license = "MIT"
 authors = ["Jerome Guibert <jguibert@gmail.com>"]

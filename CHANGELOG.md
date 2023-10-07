@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.1.1 (2023-10-07)
+
+Security fix (dev tools):
+
+- Removal of e-Tugra root certificate
+- `Cookie` HTTP header isn't stripped on cross-origin redirects
+
 ## 1.1.0 (2023-06-27)
 
 Feat:
