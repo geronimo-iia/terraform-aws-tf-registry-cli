@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.2
+
+Bug Fix:
+
+- registry name when generate .terraformrc 
+
 ## 1.1.1 (2023-10-07)
 
 Security fix (dev tools):

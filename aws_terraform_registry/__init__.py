@@ -1,5 +1,12 @@
 from .cli import build_parser
-from .common import TerraformModuleIdentifier, generate_terraformrc, generate_token, publish_module, release_module, unpublish_module
+from .common import (
+    TerraformModuleIdentifier,
+    generate_terraformrc,
+    generate_token,
+    publish_module,
+    release_module,
+    unpublish_module,
+)
 from .config import ApplicationConfig
 
 # for auto documentation

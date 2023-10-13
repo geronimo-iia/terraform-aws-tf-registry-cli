@@ -41,7 +41,7 @@ def generate_terraformrc(config: ApplicationConfig, output_directory: str, weeks
     """
     config.validate()
     repository_url = str(config.repository_url)  # avoid mypi error: this could not be null
-    hostmane = repository_url[repository_url.index("://") + 3 : -1]
+    hostmane = repository_url[repository_url.index("://") + 3 : len(repository_url)]
     with open(os.path.join(output_directory, ".terraformrc"), "w") as f:
         f.write(
             f"""
