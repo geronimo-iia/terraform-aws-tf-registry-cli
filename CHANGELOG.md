@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.3
+
+Bug Fix:
+
+- bad docs on installation
+
 ## 1.1.2
 
 Bug Fix:
