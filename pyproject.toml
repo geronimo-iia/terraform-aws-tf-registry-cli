@@ -49,7 +49,7 @@ coverage = { version = "*", extras = ["toml"] }
 mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
 mkdocstrings = { extras = ["python"], version = "^0.21.2" }
 mkdocs-material = "^9.5.5"
-mkdocs-include-markdown-plugin = "^4.0.4"
+mkdocs-include-markdown-plugin = "^6.0.4"
 
 
 [tool.poetry.group.dev.dependencies]
