@@ -34,7 +34,7 @@ crayons = "^0.4.0"
 [tool.poetry.dev-dependencies]
 black = "24.1.1"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = "^0.0.264"
+ruff = "^0.1.14"
 mypy = "*"
 types-setuptools = "^69.0.0"
 
