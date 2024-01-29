@@ -36,7 +36,7 @@ black = "22.3.0"             # The uncompromising code formatter.
 isort = "5.9.3"              #A Python utility / library to sort Python imports.
 ruff = "^0.0.264"
 mypy = "*"
-types-setuptools = "^67.7.0"
+types-setuptools = "^69.0.0"
 
 # Unit Testing
 pytest = "7.4.4"                                # pytest: simple powerful testing with Python
