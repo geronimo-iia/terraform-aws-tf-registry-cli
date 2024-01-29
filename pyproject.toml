@@ -47,7 +47,7 @@ coverage = { version = "7.4.1", extras = ["toml"] }
 
 # Documentation
 mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
-mkdocstrings = { extras = ["python"], version = "^0.21.2" }
+mkdocstrings = { extras = ["python"], version = "^0.24.0" }
 mkdocs-material = "^9.5.6"
 mkdocs-include-markdown-plugin = "^6.0.4"
 
