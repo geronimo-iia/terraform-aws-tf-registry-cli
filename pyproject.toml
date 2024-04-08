@@ -34,7 +34,7 @@ crayons = "^0.4.0"
 [tool.poetry.dev-dependencies]
 black = "24.3.0"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = "^0.3.4"
+ruff = "^0.3.5"
 mypy = "*"
 types-setuptools = "^69.2.0"
 
@@ -47,8 +47,8 @@ coverage = { version = "7.4.4", extras = ["toml"] }
 
 # Documentation
 mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
-mkdocstrings = { extras = ["python"], version = "^0.24.1" }
-mkdocs-material = "^9.5.16"
+mkdocstrings = { extras = ["python"], version = "^0.24.3" }
+mkdocs-material = "^9.5.17"
 mkdocs-include-markdown-plugin = "^6.0.5"
 
 
