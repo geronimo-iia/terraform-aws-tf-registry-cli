@@ -39,7 +39,7 @@ mypy = "*"
 types-setuptools = "^69.5.0"
 
 # Unit Testing
-pytest = "8.2.0"                                # pytest: simple powerful testing with Python
+pytest = "8.2.1"                                # pytest: simple powerful testing with Python
 pytest-cov = "^5"                               # Pytest plugin for measuring coverage.
 pytest-mock = "^3"
 xdoctest = "^1.1.3"                            # A rewrite of the builtin doctest module
