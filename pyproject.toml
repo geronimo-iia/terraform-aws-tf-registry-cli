@@ -34,7 +34,7 @@ crayons = "^0.4.0"
 [tool.poetry.dev-dependencies]
 black = "24.4.2"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = "^0.4.9"
+ruff = "^0.4.10"
 mypy = "*"
 types-setuptools = "^70.0.0"
 
@@ -43,13 +43,13 @@ pytest = "8.2.2"                                # pytest: simple powerful testin
 pytest-cov = "^5"                               # Pytest plugin for measuring coverage.
 pytest-mock = "^3"
 xdoctest = "^1.1.5"                            # A rewrite of the builtin doctest module
-coverage = { version = "7.5.3", extras = ["toml"] }
+coverage = { version = "7.5.4", extras = ["toml"] }
 
 # Documentation
 mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
 mkdocstrings = { extras = ["python"], version = "^0.25.1" }
 mkdocs-material = "^9.5.18"
-mkdocs-include-markdown-plugin = "^6.2.0"
+mkdocs-include-markdown-plugin = "^6.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
