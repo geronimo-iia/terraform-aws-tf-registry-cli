@@ -18,6 +18,10 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
@@ -31,31 +35,28 @@ envclasses = "^0.3.1"
 python-dotenv = "^1.0.0"
 crayons = "^0.4.0"
 
-[tool.poetry.dev-dependencies]
-black = "24.8.0"             # The uncompromising code formatter.
+[tool.poetry.group.dev.dependencies]
+black = "24.4.2"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = "^0.6.3"
-mypy = "*"
-types-setuptools = "^74.0.0"
+ruff = "^0.5.5"
+pyright = "^1.1.354"
 
 # Unit Testing
-pytest = "8.3.2"                                # pytest: simple powerful testing with Python
+pytest = "^8"                                   # pytest: simple powerful testing with Python
 pytest-cov = "^5"                               # Pytest plugin for measuring coverage.
 pytest-mock = "^3"
-xdoctest = "^1.2.0"                            # A rewrite of the builtin doctest module
-coverage = { version = "7.6.1", extras = ["toml"] }
+xdoctest = "^1.1.5"                            # A rewrite of the builtin doctest module
+coverage = { version = "*", extras = ["toml"] }
 
-# Documentation
-mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
-mkdocstrings = { extras = ["python"], version = "^0.26.0" }
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = { extras = ["markdown-include"], version = "^1.5.3" }
+mkdocstrings = { extras = ["python"], version = "^0.25.2" }
 mkdocs-material = "^9.5.18"
-mkdocs-include-markdown-plugin = "^6.2.2"
+mkdocs-include-markdown-plugin = "^6.2.1"
 
-
-[tool.poetry.group.dev.dependencies]
-types-pyyaml = "^6.0.12.10"
-pytest-mock = "^3.11.1"
-certifi = ">=2023.7.22,<2025.0.0"
 
 [tool.black]
 # see https://black.readthedocs.io/en/stable/
@@ -96,19 +97,75 @@ cache_dir = ".cache"
 cache-dir = ".cache/ruff"
 line-length = 120
 
-[tool.mypy]
-cache_dir = ".cache/mypy/"
-check_untyped_defs = true
-ignore_errors = false
-ignore_missing_imports = true
-warn_unused_ignores = true
-warn_redundant_casts = true
-warn_unused_configs = true
+[tool.pyright]
+include = ["aws_terraform_registry"]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "aws_terraform_registry/experimental",
+    "aws_terraform_registry/typestubs"
+]
+ignore = ["tests"]
+defineConstant = { DEBUG = true }
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+pythonVersion = "3.8"
+pythonPlatform = "Linux"
+
+
+[tool.poe.tasks]
+_isort = "poetry run isort aws_terraform_registry tests"
+_black = "poetry run black aws_terraform_registry tests"
+_ruff = "poetry run ruff check aws_terraform_registry"
+pyright = "poetry run pyright"
+_build = "poetry build"
+_publish = "poetry publish"
+build.help = "Build module"
+build.sequence = ["check", "test", "_build"]
+publish.help = "Publish module"
+publish.sequence = ["build", "_publish"]
+check.help = "Run Linter and type checker"
+check.sequence = ["_isort", "_black", "_ruff", "pyright"]
+
+
+[tool.poe.tasks.test]
+help = "Run unit tests"
+shell = """
+if test -e .cache/v/cache/lastfailed; then poetry run pytest tests --last-failed --exitfirst; fi &
+rm -rf .cache/v/cache/lastfailed &
+poetry run pytest
+"""
+
+[tool.poe.tasks.docs]
+help = "Build site documentation"
+shell  = """
+git fetch origin gh-pages &
+poetry run mkdocs build --clean
+"""
+
+[tool.poe.tasks.docs-publish]
+help = "Publish site documentation"
+cmd  = """
+poetry run mkdocs gh-deploy  --clean 
+"""
+
+[tool.poe.tasks.clean]
+help = "Remove all generated and temporary files"
+shell  = """
+rm -rf *.spec dist build .eggs *.egg-info .install .cache .coverage htmlcov .mypy_cache .pytest_cache site .ruff_cache &
+find aws_terraform_registry tests -type d -name '__pycache__' -exec rm -rf {} +
+"""
+
+[tool.poe.tasks.requirements]
+help = "Generate requirements.txt"
+cmd = "poetry export --without-hashes -f requirements.txt "
+capture_stdout = "requirements.txt"
+
 
 [build-system]
-requires = ["poetry>=1.1.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
-# Exqmple
 [tool.poetry.scripts]
 tfr = "aws_terraform_registry.cli:main"

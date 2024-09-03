@@ -1,5 +1,18 @@
 # Change Log
 
+## 1.1.4
+
+Security Fix:
+
+- inja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter
+
+Build System:
+
+  - update poetry declaration
+  - use poe plugin (simplify makefile)
+  - use pyright for analysis (remove mypi)
+
+
 ## 1.1.3
 
 Bug Fix:

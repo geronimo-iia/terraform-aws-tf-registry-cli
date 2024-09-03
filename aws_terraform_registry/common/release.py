@@ -14,6 +14,7 @@ logger = getLogger()
 
 __all__ = ['release_module', 'send_s3_from_file', 'send_s3_from_dir', 'send_s3_from_url']
 
+
 # mypy: disable-error-code="arg-type"
 def release_module(
     config: ApplicationConfig, terraform_module: TerraformModuleIdentifier, version: str, source: str
@@ -60,7 +61,9 @@ def release_module(
 
         send_s3_from_dir(config=config, archive_dir=_source, s3_key=s3_key)
 
-    publish_url = terraform_module.get_publish_url(bucket_name=config.bucket_name, version=version)
+    publish_url = terraform_module.get_publish_url(
+        bucket_name=config.bucket_name, version=version  # pyright: ignore[reportArgumentType]
+    )
     # experimental API
     # publish_url = terraform_module.get_blob_url(repository_url=config.repository_url, version=version)
     logger.debug(f"url: {publish_url}")
@@ -69,13 +72,13 @@ def release_module(
     return publish_url
 
 
-def send_s3_from_file(config: ApplicationConfig, archive_file: str, s3_key: str):
+def send_s3_from_file(config: ApplicationConfig, archive_file: Path, s3_key: str):
     s3 = client('s3')
     with open(archive_file, "rb") as object_data:
         s3.put_object(Bucket=config.bucket_name, Key=s3_key, Body=object_data)
 
 
-def send_s3_from_dir(config: ApplicationConfig, archive_dir: str, s3_key: str):
+def send_s3_from_dir(config: ApplicationConfig, archive_dir: Path, s3_key: str):
     archive_file = Path.cwd() / BUCKET_FILE_NAME
     try:
         with tarfile.open(archive_file, "w:gz") as tar:

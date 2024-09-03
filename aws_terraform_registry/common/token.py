@@ -9,6 +9,7 @@ from ..config import ApplicationConfig
 
 __all__ = ["generate_token", "generate_terraformrc", "get_secret"]
 
+
 # mypy: disable-error-code="arg-type"
 def generate_token(config: ApplicationConfig, weeks: int = 1) -> str:
     """Generate a JWT tokecm.
@@ -21,7 +22,7 @@ def generate_token(config: ApplicationConfig, weeks: int = 1) -> str:
         str: encoded jwt token
     """
     config.validate()
-    token = get_secret(secret_key_name=config.secret_key_name)
+    token = get_secret(secret_key_name=config.secret_key_name)  # pyright: ignore[reportArgumentType]
     return jwt.encode(
         {"exp": datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(weeks=weeks)},
         token,
