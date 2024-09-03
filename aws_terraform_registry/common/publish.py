@@ -9,6 +9,7 @@ logger = getLogger()
 
 __all__ = ["publish_module", "exists"]
 
+
 # mypy: disable-error-code="arg-type"
 def publish_module(
     config: ApplicationConfig, terraform_module: TerraformModuleIdentifier, version: str, source: str

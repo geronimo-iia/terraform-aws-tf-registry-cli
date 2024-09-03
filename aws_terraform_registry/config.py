@@ -64,7 +64,7 @@ class ApplicationConfig:
         yaml.safe_dump(asdict(self), sys.stdout)
 
     @classmethod
-    def lookup(clazz, config_file_name: Optional[str] = None) -> 'ApplicationConfig':
+    def lookup(cls, config_file_name: Optional[str] = None) -> 'ApplicationConfig':
         # define config file name
         config_file_name = config_file_name if config_file_name else os.environ.get('TFR_CONFIG_FILE', _CONFIG_NAME)
 
@@ -77,7 +77,7 @@ class ApplicationConfig:
         return ApplicationConfig()
 
     @classmethod
-    def load_from(clazz, filename: Union[Path, str]) -> 'ApplicationConfig':
+    def load_from(cls, filename: Union[Path, str]) -> 'ApplicationConfig':
         """Load ApplicationConfig from a yaml file."""
         with open(filename) as f:
-            return clazz(**yaml.safe_load(f.read()))
+            return cls(**yaml.safe_load(f.read()))

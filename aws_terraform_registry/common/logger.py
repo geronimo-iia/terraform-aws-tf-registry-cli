@@ -1,8 +1,9 @@
 """Python logger definition."""
+
 import logging
 import os
 
-from crayons import green, magenta, red, yellow
+from crayons import green, magenta, red, yellow  # pyright: ignore[reportAttributeAccessIssue]
 
 __all__ = ["init_root_logger"]
 
@@ -11,7 +12,7 @@ class CrayonsFormatter(logging.Formatter):
     """Colored Log Formater."""
 
     def __init__(self, fmt=None, datefmt=None, style="%"):
-        logging.Formatter.__init__(self, fmt, datefmt, style)
+        logging.Formatter.__init__(self, fmt, datefmt, style)  # pyright: ignore[reportArgumentType]
 
     def format(self, record):  # noqa: A003
         s = super().format(record)
