@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.1.4
+## 1.1.5
 
 Security Fix:
 
@@ -11,6 +11,14 @@ Build System:
   - update poetry declaration
   - use poe plugin (simplify makefile)
   - use pyright for analysis (remove mypi)
+
+
+## 1.1.4
+
+Build System:
+
+- update dependabot pipeline
+- update security dependencies
 
 
 ## 1.1.3
