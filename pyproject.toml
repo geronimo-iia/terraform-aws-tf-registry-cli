@@ -36,9 +36,9 @@ python-dotenv = "^1.0.0"
 crayons = "^0.4.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "24.4.2"             # The uncompromising code formatter.
+black = "24.8.0"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = "^0.5.5"
+ruff = ">=0.5.5,<0.7.0"
 pyright = "^1.1.354"
 
 # Unit Testing
@@ -53,7 +53,7 @@ optional = true
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["markdown-include"], version = "^1.5.3" }
-mkdocstrings = { extras = ["python"], version = "^0.25.2" }
+mkdocstrings = { extras = ["python"], version = ">=0.25.2,<0.27.0" }
 mkdocs-material = "^9.5.18"
 mkdocs-include-markdown-plugin = "^6.2.1"
 
