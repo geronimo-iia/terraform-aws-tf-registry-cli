@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.2.0
+
+- Remove python 3.8 support
+
+
 ## 1.1.5
 
 Security Fix:
