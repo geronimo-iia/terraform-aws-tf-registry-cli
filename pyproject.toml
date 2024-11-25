@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aws_terraform_registry"
-version = "1.1.5"
+version = "1.2.0"
 description = "Python client tool for aws private terraform registry."
 license = "MIT"
 authors = ["Jerome Guibert <jguibert@gmail.com>"]
@@ -17,7 +17,6 @@ classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -27,7 +26,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4.0"
+python = ">=3.9,<4.0"
 boto3 = "^1.26.157"
 pyjwt = "^2.7.0"
 pyyaml = "^6.0"
@@ -54,14 +53,14 @@ optional = true
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["markdown-include"], version = "^1.5.3" }
 mkdocstrings = { extras = ["python"], version = ">=0.25.2,<0.27.0" }
-mkdocs-material = "^9.5.18"
+mkdocs-material = "^9.5.46"
 mkdocs-include-markdown-plugin = "^6.2.1"
 
 
 [tool.black]
 # see https://black.readthedocs.io/en/stable/
 line_length = 120
-target-version = ["py38"]
+target-version = ["py39"]
 skip-string-normalization = true
 
 [tool.isort]
@@ -110,7 +109,7 @@ defineConstant = { DEBUG = true }
 reportMissingImports = true
 reportMissingTypeStubs = false
 
-pythonVersion = "3.8"
+pythonVersion = "3.9"
 pythonPlatform = "Linux"
 
 
