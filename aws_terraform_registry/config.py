@@ -42,10 +42,10 @@ class ApplicationConfig:
         Feed attributs from TFR_xxxx env variable if exists.
         """
         # Feed from env var
-        load_env(self, prefix='tfr')
+        load_env(self, prefix="tfr")
 
         # remove ending '/'
-        if self.repository_url and self.repository_url.endswith('/'):
+        if self.repository_url and self.repository_url.endswith("/"):
             self.repository_url = self.repository_url[0:-2]
 
     def validate(self):
@@ -55,7 +55,7 @@ class ApplicationConfig:
             (RuntimeError): if an attribut is empty
 
         """
-        for name in ['secret_key_name', 'repository_url', 'dynamodb_table_name', 'bucket_name', 'default_namespace']:
+        for name in ["secret_key_name", "repository_url", "dynamodb_table_name", "bucket_name", "default_namespace"]:
             if not getattr(self, name):
                 logger.error(f"Configuration ERROR: '{name}' parameter is missing")
                 raise RuntimeError(f"Configuration ERROR: '{name}' parameter is missing")
@@ -64,12 +64,12 @@ class ApplicationConfig:
         yaml.safe_dump(asdict(self), sys.stdout)
 
     @classmethod
-    def lookup(cls, config_file_name: Optional[str] = None) -> 'ApplicationConfig':
+    def lookup(cls, config_file_name: Optional[str] = None) -> "ApplicationConfig":
         # define config file name
-        config_file_name = config_file_name if config_file_name else os.environ.get('TFR_CONFIG_FILE', _CONFIG_NAME)
+        config_file_name = config_file_name if config_file_name else os.environ.get("TFR_CONFIG_FILE", _CONFIG_NAME)
 
         # lookup
-        for path in [Path.home(), Path.cwd(), Path('/etc/tfr')]:
+        for path in [Path.home(), Path.cwd(), Path("/etc/tfr")]:
             config_path = path / config_file_name
             if config_path.exists():
                 return ApplicationConfig.load_from(filename=config_path)
@@ -77,7 +77,7 @@ class ApplicationConfig:
         return ApplicationConfig()
 
     @classmethod
-    def load_from(cls, filename: Union[Path, str]) -> 'ApplicationConfig':
+    def load_from(cls, filename: Union[Path, str]) -> "ApplicationConfig":
         """Load ApplicationConfig from a yaml file."""
         with open(filename) as f:
             return cls(**yaml.safe_load(f.read()))

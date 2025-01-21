@@ -36,7 +36,7 @@ def publish_module(
         logger.error(msg)
         raise RuntimeError(msg)
 
-    client('dynamodb').put_item(
+    client("dynamodb").put_item(
         TableName=config.dynamodb_table_name,
         Item={
             "Id": {"S": terraform_module.module_id},
@@ -69,7 +69,7 @@ def unpublish_module(config: ApplicationConfig, terraform_module: TerraformModul
         logger.error(msg)
         raise RuntimeError(msg)
 
-    client('dynamodb').delete_item(
+    client("dynamodb").delete_item(
         TableName=config.dynamodb_table_name,
         Key={
             "Id": {"S": terraform_module.module_id},
@@ -82,6 +82,6 @@ def unpublish_module(config: ApplicationConfig, terraform_module: TerraformModul
 def exists(config: ApplicationConfig, terraform_module: TerraformModuleIdentifier, version: str) -> bool:
     dynamodb_client = client("dynamodb")
     response = dynamodb_client.get_item(
-        TableName=config.dynamodb_table_name, Key={'Id': {'S': terraform_module.module_id}, 'Version': {'S': version}}
+        TableName=config.dynamodb_table_name, Key={"Id": {"S": terraform_module.module_id}, "Version": {"S": version}}
     )
-    return 'Item' in response
+    return "Item" in response

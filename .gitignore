@@ -28,6 +28,7 @@ Icon*
 *.spec
 .install
 .coverage
+coverage.xml
 
 # Sublime Text
 *.sublime-workspace

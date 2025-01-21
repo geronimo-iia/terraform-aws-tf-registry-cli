@@ -14,7 +14,6 @@ def test_tf_bucket_key():
 
 
 def test_tf_publish_url(mocker):
-
     mocker.patch("aws_terraform_registry.common.model._find_caller_region", return_value="eu-west-1")
     tf_id = TerraformModuleIdentifier(namespace="devops", name="kms", system="aws")
     assert (
@@ -31,7 +30,6 @@ def test_tf_publish_url(mocker):
 
 
 def test_tf_blob_url(mocker):
-
     tf_id = TerraformModuleIdentifier(namespace="devops", name="kms", system="aws")
     assert (
         tf_id.get_blob_url(repository_url="https://registry.my-domain.con", version="1.0.0")
