@@ -61,6 +61,7 @@ def release_module(
 
         send_s3_from_dir(config=config, archive_dir=_source, s3_key=s3_key)
 
+    assert config.bucket_name
     publish_url = terraform_module.get_publish_url(
         bucket_name=config.bucket_name,
         version=version,  # pyright: ignore[reportArgumentType]
@@ -93,9 +94,8 @@ def send_s3_from_url(config: ApplicationConfig, source_url: str, s3_key: str):
     opener = urllib.request.build_opener()
     archive_file = Path.cwd() / BUCKET_FILE_NAME
     try:
-        with open(archive_file, "wb") as archive:
-            with opener.open(source_url) as object_data:
-                archive.write(object_data.read())
+        with open(archive_file, "wb") as archive, opener.open(source_url) as object_data:
+            archive.write(object_data.read())
         send_s3_from_file(config=config, archive_file=archive_file, s3_key=s3_key)
     finally:
         archive_file.unlink()
