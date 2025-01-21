@@ -54,7 +54,7 @@ credentials "{hostmane}" {{
 
 
 def get_secret(secret_key_name: str):
-    secret_value_response = client('secretsmanager').get_secret_value(SecretId=secret_key_name)
+    secret_value_response = client("secretsmanager").get_secret_value(SecretId=secret_key_name)
     return (
         secret_value_response["SecretString"]
         if "SecretString" in secret_value_response

@@ -6,7 +6,7 @@ import curses
 import random
 import time
 
-__all__ = ['process_config_matrix']
+__all__ = ["process_config_matrix"]
 
 # Sleep between frame after refresh so that user can see the frame. Value 0.01 or lower results in flickering because
 # the animation is too fast.
@@ -33,11 +33,11 @@ MAX_COLS = 0
 
 # TODO This can be a namedtuple
 options = {
-    'head': HEAD_BOLD,
-    'speed': FALLING_SPEED,
-    'count': MAX_RAIN_COUNT,
-    'opening_title': " ".join("Devops Matrix".upper()),
-    'end_title': " ".join("Datalab team powered!".upper()),
+    "head": HEAD_BOLD,
+    "speed": FALLING_SPEED,
+    "count": MAX_RAIN_COUNT,
+    "opening_title": " ".join("Devops Matrix".upper()),
+    "end_title": " ".join("Datalab team powered!".upper()),
 }
 
 
@@ -48,8 +48,8 @@ def config(stdscr):
 
     init_colors()
 
-    options['count'] = MAX_COLS // 2
-    options['speed'] = 1 + curses.LINES // 25
+    options["count"] = MAX_COLS // 2
+    options["speed"] = 1 + curses.LINES // 25
 
 
 def init_colors():
@@ -131,7 +131,7 @@ def rain_once(stdscr, x, begin, end, last_char=None):
     :return: the value received from yield
     """
     max_length = random_rain_length()
-    speed = random.randint(1, options['speed'])
+    speed = random.randint(1, options["speed"])
     r = yield from animate_rain(stdscr, x, begin, end, max_length, speed, last_char)
     return r
 
@@ -154,7 +154,7 @@ def animate_rain(stdscr, x, begin, end, max_length, speed=FALLING_SPEED, last_ch
     """
     head, tail = begin, begin
 
-    head_style = options['head']
+    head_style = options["head"]
 
     def show_head():
         if head < end:
@@ -181,7 +181,7 @@ def animate_rain(stdscr, x, begin, end, max_length, speed=FALLING_SPEED, last_ch
 
     def show_tail():
         for i in range(max(begin, tail - speed), min(tail, end)):
-            stdscr.addstr(i, x, ' ', curses.color_pair(0))
+            stdscr.addstr(i, x, " ", curses.color_pair(0))
 
     while tail < end:
         tail = head - max_length
@@ -208,7 +208,7 @@ def update_style():
     Cycle thru different styles
     :return: None
     """
-    options['head'] = HEAD_BOLD if options['head'] == HEAD_STANDOUT else HEAD_STANDOUT
+    options["head"] = HEAD_BOLD if options["head"] == HEAD_STANDOUT else HEAD_STANDOUT
 
 
 def show_title(stdscr, y, x, title):
@@ -232,7 +232,7 @@ def show_title(stdscr, y, x, title):
         if col >= MAX_COLS:
             break
         pool.remove(col)
-        if s != ' ':  # space is not visible
+        if s != " ":  # space is not visible
             rains.append(rain_once(stdscr, col, 0, y, s))
             count = count + 1
 
@@ -253,7 +253,7 @@ def show_title(stdscr, y, x, title):
             should_stop = True
 
         ch = stdscr.getch()
-        if ch != curses.ERR and ch != ord(' '):  # Use space to proceed animation if nodelay is False
+        if ch != curses.ERR and ch != ord(" "):  # Use space to proceed animation if nodelay is False
             break  # exit
 
         if not rains:  # all the rains have stopped
@@ -285,8 +285,8 @@ def main(stdscr):
             next(r)
 
         ch = stdscr.getch()
-        if ch != curses.ERR and ch != ord(' '):  # Use space to proceed animation if nodelay is False
-            if ch == ord('h'):
+        if ch != curses.ERR and ch != ord(" "):  # Use space to proceed animation if nodelay is False
+            if ch == ord("h"):
                 update_style()
             else:
                 show_title(stdscr, curses.LINES // 2, MAX_COLS // 3, options["end_title"])
@@ -296,7 +296,7 @@ def main(stdscr):
 
 
 def add_rain(rains, stdscr, pool):
-    if (len(rains) < options['count']) and (len(pool) > 0):
+    if (len(rains) < options["count"]) and (len(pool) > 0):
         rains.append(rain_forever(stdscr, pool))
 
 

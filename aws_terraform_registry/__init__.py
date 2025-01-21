@@ -11,12 +11,12 @@ from .config import ApplicationConfig
 
 # for auto documentation
 __all__ = [
-    'ApplicationConfig',
-    'build_parser',
-    'TerraformModuleIdentifier',
-    'generate_terraformrc',
-    'generate_token',
-    'publish_module',
-    'unpublish_module',
-    'release_module',
+    "ApplicationConfig",
+    "build_parser",
+    "TerraformModuleIdentifier",
+    "generate_terraformrc",
+    "generate_token",
+    "publish_module",
+    "unpublish_module",
+    "release_module",
 ]

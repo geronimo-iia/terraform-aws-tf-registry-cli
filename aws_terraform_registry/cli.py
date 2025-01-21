@@ -36,7 +36,7 @@ def main():
 def build_parser(config: ApplicationConfig):
     """Build arguments parser."""
     parser = argparse.ArgumentParser(prog="tfr", description="Manage terraform registry")
-    subparsers = parser.add_subparsers(help='commands')
+    subparsers = parser.add_subparsers(help="commands")
 
     for item in [
         _define_config,
@@ -53,12 +53,12 @@ def build_parser(config: ApplicationConfig):
 
 # mypy: disable-error-code="attr-defined"
 def _define_config(subparsers, config: ApplicationConfig):
-    parser = subparsers.add_parser('config', help='Show configuration parameters')
+    parser = subparsers.add_parser("config", help="Show configuration parameters")
     parser.set_defaults(func=lambda args: config.show())
 
     # easter
     subparsers = parser.add_subparsers(help="")
-    parser_mx = subparsers.add_parser('mx', help='have a break')
+    parser_mx = subparsers.add_parser("mx", help="have a break")
 
     def process_mx():
         # dynamic loading
@@ -70,7 +70,7 @@ def _define_config(subparsers, config: ApplicationConfig):
 
 
 def _define_terraformrc(subparsers, config: ApplicationConfig):
-    parser = subparsers.add_parser('generate-terraformrc', help='Generate terraformrc configuration file')
+    parser = subparsers.add_parser("generate-terraformrc", help="Generate terraformrc configuration file")
     parser.add_argument(
         "-output-directory",
         "--output-directory",
@@ -91,14 +91,14 @@ def _define_terraformrc(subparsers, config: ApplicationConfig):
 
 
 def _define_generate(subparsers, config: ApplicationConfig):
-    parser = subparsers.add_parser('generate-token', help='Generate an access token')
+    parser = subparsers.add_parser("generate-token", help="Generate an access token")
     _add_weeks_arg(parser=parser)
 
     parser.set_defaults(func=lambda args: print(generate_token(config=config, weeks=args.weeks)))
 
 
 def _define_publish(subparsers, config: ApplicationConfig):
-    parser = subparsers.add_parser('publish', help='Publish a terraform module from custom source.')
+    parser = subparsers.add_parser("publish", help="Publish a terraform module from custom source.")
     _add_common_terraform_module_args(parser=parser)
     parser.set_defaults(
         func=lambda args: publish_module(
@@ -115,7 +115,7 @@ def _define_publish(subparsers, config: ApplicationConfig):
 
 
 def _define_unpublish(subparsers, config: ApplicationConfig):
-    parser = subparsers.add_parser('unpublish', help='Unpublish a terraform module (Keep archive on s3).')
+    parser = subparsers.add_parser("unpublish", help="Unpublish a terraform module (Keep archive on s3).")
     _add_common_terraform_module_identifier_args(parser=parser)
     parser.set_defaults(
         func=lambda args: unpublish_module(
@@ -131,7 +131,7 @@ def _define_unpublish(subparsers, config: ApplicationConfig):
 
 
 def _define_release(subparsers, config: ApplicationConfig):
-    parser = subparsers.add_parser('release', help='Release a terraform module from custom source.')
+    parser = subparsers.add_parser("release", help="Release a terraform module from custom source.")
     _add_common_terraform_module_args(parser=parser)
     parser.set_defaults(
         func=lambda args: release_module(
