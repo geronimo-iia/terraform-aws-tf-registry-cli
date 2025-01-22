@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.2
+
+- fix miss configuration with setuptool
+
 ## 1.2.1
 
 - use uv tool as dependencies manager

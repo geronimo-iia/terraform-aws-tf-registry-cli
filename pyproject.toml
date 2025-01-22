@@ -1,6 +1,6 @@
 [project]
 name = "aws_terraform_registry"
-version = "1.2.1"
+version = "1.2.2"
 description = "Python client tool for aws private terraform registry."
 authors = [{ name = "Jerome Guibert", email = "jguibert@gmail.com" }]
 readme = "README.md"
@@ -62,8 +62,11 @@ docs = [
 
 
 [tool.setuptools]
-packages = ["aws_terraform_registry"]
 license-files = []
+
+[tool.setuptools.packages.find]
+include = ["aws_terraform_registry*"]
+namespaces = false
 
 [tool.uv]
 package = true
