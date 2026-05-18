@@ -56,10 +56,10 @@ dev = [
 ]
 docs = [
     { name = "mkdocs", specifier = "~=1.6" },
-    { name = "mkdocs-include-markdown-plugin", specifier = ">=7.1.2" },
-    { name = "mkdocs-include-markdown-plugin", specifier = ">=7.1.2,<7.3.0" },
+    { name = "mkdocs-include-markdown-plugin", specifier = ">=7.1.2,<7.3.0,<7.4.0" },
+    { name = "mkdocs-include-markdown-plugin", specifier = ">=7.1.2,<7.4.0" },
     { name = "mkdocs-material", specifier = "==9.*" },
-    { name = "mkdocstrings", extras = ["python"], specifier = "~=0.27" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=0.27,<2.0" },
 ]
 
 [[package]]
