@@ -1,5 +1,18 @@
 # Change Log
 
+
+## 1.3.0
+
+- Add support for python 3.12, 3.13, remove support python 3.9 and 3.10
+- Bug fix:
+  - config.py — off-by-one on URL stripping
+  - Missing else branch in release.py
+- Avoid creating a new boto3 client on every call and use simple lazy client cache
+- Replace deprecated crayons with rich
+- upgrade dependencies
+- Add py.typed marker
+- Removed poe
+
 ## 1.2.2
 
 - fix miss configuration with setuptool
