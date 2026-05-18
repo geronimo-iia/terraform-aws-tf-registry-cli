@@ -1,35 +1,34 @@
 [project]
 name = "aws_terraform_registry"
-version = "1.2.2"
+version = "1.3.0"
 description = "Python client tool for aws private terraform registry."
 authors = [{ name = "Jerome Guibert", email = "jguibert@gmail.com" }]
 readme = "README.md"
-license = {text = "The MIT License (MIT)"}
+license = "MIT"
 #license = {file = "LICENSE.md"} # setuptool bug
 keywords = []
 classifiers = [
     # update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
-requires-python = ">=3.9,<4"
+requires-python = ">=3.11,<4"
+license-files = ["LICENSE.md"]
 dependencies = [
-    "boto3 ~= 1.26",
-    "pyjwt >= 2.7,< 2.13",
-    "pyyaml ~= 6.0",
-    "envclasses ~= 0.3.1",
-    "python-dotenv >= 1.0,< 1.3",
-    "crayons ~= 0.4.0"
+    "boto3 >= 1.26",
+    "pyjwt >= 2.7, < 3",
+    "pyyaml >= 6.0, < 7",
+    "envclasses >= 0.3.1",
+    "python-dotenv >= 1.0, < 2",
+    "rich >= 13.0"
 ]
 
 [project.urls]
@@ -42,35 +41,32 @@ tfr = "aws_terraform_registry.cli:main"
 
 [dependency-groups]
 dev =  [
-    "ruff ~= 0.9",
-    "pyright ~= 1.1.354",
-    "pytest >= 8", # pytest: simple powerful testing with Python
-    "pytest-cov >= 5", # Pytest plugin for measuring coverage.
-    "pytest-mock >=3",
-    "xdoctest >=1.2,<1.4", # A rewrite of the builtin doctest module
-    "coverage[toml] >= 7.6.10",
-    "poethepoet >= 0.32.1",
-    "setuptools>=75",
+    "ruff >= 0.9",
+    "pyright >= 1.1.391",
+    "pytest >= 9",
+    "pytest-cov >= 7",
+    "pytest-mock >= 3",
+    "xdoctest >= 1.2, < 2",
+    "coverage[toml] >= 7.13",
+    "setuptools >= 82",
 ]
 docs = [
     "mkdocs~= 1.6",
     "mkdocs-include-markdown-plugin >= 7.1.2",
     "mkdocstrings[python] ~= 0.27",
     "mkdocs-material == 9.*",
-    "mkdocs-include-markdown-plugin >= 7.1.2,< 7.3.0"
+    "mkdocs-include-markdown-plugin >= 7.1.2,< 7.3.0",
 ]
 
-
 [tool.setuptools]
-license-files = []
+packages = ["aws_terraform_registry"]
 
-[tool.setuptools.packages.find]
-include = ["aws_terraform_registry*"]
-namespaces = false
+[tool.setuptools.package-data]
+aws_terraform_registry = ["py.typed"]
+
 
 [tool.uv]
 package = true
-
 cache-dir = "./.cache"
 default-groups = ["dev", "docs"]
 
@@ -98,7 +94,7 @@ cache_dir = ".cache"
 cache-dir = ".cache/ruff"
 line-length = 120
 indent-width = 4
-target-version = "py39"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = [
@@ -140,79 +136,14 @@ defineConstant = { DEBUG = true }
 reportMissingImports = true
 reportMissingTypeStubs = false
 
-pythonVersion = "3.9"
+pythonVersion = "3.11"
 pythonPlatform = "Linux"
 
 
-[tool.poe.tasks]
-_build = "uv build"
-_publish = "uv publish"
-
-
-[tool.poe.tasks.types]
-help = "Run the type checker"
-cmd  = "uv run pyright"
-
-[tool.poe.tasks.lint]
-help = "Run linting tools on the code base"
-cmd  = "uv run ruff check --fix ."
-
-[tool.poe.tasks.style]
-help = "Validate black code style"
-shell = """
-uv run ruff check --select I --fix
-uv run ruff format .
-"""
-
-[tool.poe.tasks.test]
-help = "Run unit tests"
-shell = """
-if test -e .cache/v/cache/lastfailed; then uv run pytest tests --last-failed --exitfirst; fi &
-rm -rf .cache/v/cache/lastfailed &
-uv run pytest
-"""
-
-[tool.poe.tasks.check]
-help     = "Run all checks on the code base"
-sequence = [ "style", "types", "lint", "test"]
-
-
-[tool.poe.tasks.build]
-help  = "Build module"
-sequence = ["check", "_build"]
-
-[tool.poe.tasks.publish]
-help  = "Publish module"
-sequence = ["build", "_publish"]
-
-[tool.poe.tasks.docs]
-help = "Build site documentation"
-shell = """
-git fetch origin gh-pages &
-uv run mkdocs build --clean
-"""
-
-[tool.poe.tasks.docs-publish]
-help = "Publish site documentation"
-cmd = """
-uv run mkdocs gh-deploy  --clean 
-"""
-
-[tool.poe.tasks.clean]
-help = "Remove all generated and temporary files"
-shell  = """
-uv cache clean
-rm -rf *.spec dist build .eggs *.egg-info .install .cache .coverage htmlcov .mypy_cache .pytest_cache site .ruff_cache &
-find aws_terraform_registry tests -type d -name '__pycache__' -exec rm -rf {} +
-"""
-
-[tool.poe.tasks.requirements]
-help = "Generate requirements.txt"
-cmd = "uv pip compile pyproject.toml -o requirements.txt "
-capture_stdout = "requirements.txt"
-
 [build-system]
-requires = ["setuptools>=75"]
+requires = ["setuptools>=82"]
 build-backend = "setuptools.build_meta"
+
+
 
 

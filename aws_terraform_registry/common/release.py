@@ -3,9 +3,7 @@ import urllib.request
 from logging import getLogger
 from pathlib import Path
 
-from boto3 import client
-
-from ..config import ApplicationConfig
+from ..config import ApplicationConfig, s3
 from .model import BUCKET_FILE_NAME, TerraformModuleIdentifier
 from .publish import exists, publish_module
 
@@ -58,8 +56,8 @@ def release_module(
             raise RuntimeError(f"Source {source} did not exists ")
         if _source.is_file():
             send_s3_from_file(config=config, archive_file=_source, s3_key=s3_key)
-
-        send_s3_from_dir(config=config, archive_dir=_source, s3_key=s3_key)
+        else:
+            send_s3_from_dir(config=config, archive_dir=_source, s3_key=s3_key)
 
     assert config.bucket_name
     publish_url = terraform_module.get_publish_url(
@@ -75,9 +73,8 @@ def release_module(
 
 
 def send_s3_from_file(config: ApplicationConfig, archive_file: Path, s3_key: str):
-    s3 = client("s3")
     with open(archive_file, "rb") as object_data:
-        s3.put_object(Bucket=config.bucket_name, Key=s3_key, Body=object_data)
+        s3().put_object(Bucket=config.bucket_name, Key=s3_key, Body=object_data)
 
 
 def send_s3_from_dir(config: ApplicationConfig, archive_dir: Path, s3_key: str):

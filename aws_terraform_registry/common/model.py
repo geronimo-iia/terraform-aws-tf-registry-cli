@@ -1,8 +1,6 @@
 import os
 from dataclasses import dataclass
 
-from boto3 import client
-
 __all__ = ["TerraformModuleIdentifier", "BUCKET_FILE_NAME"]
 
 BUCKET_FILE_NAME = "archive.tar.gz"
@@ -49,6 +47,8 @@ class TerraformModuleIdentifier:
 
 def _find_caller_region() -> str:
     try:
-        return client("s3").meta.region_name
+        from ..config import s3
+
+        return s3().meta.region_name
     except RuntimeError:
         return os.environ.get("AWS_REGION", "eu-west-1")

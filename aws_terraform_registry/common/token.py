@@ -3,9 +3,8 @@ import os
 from base64 import b64decode
 
 import jwt
-from boto3 import client
 
-from ..config import ApplicationConfig
+from ..config import ApplicationConfig, secretsmanager
 
 __all__ = ["generate_token", "generate_terraformrc", "get_secret"]
 
@@ -24,7 +23,7 @@ def generate_token(config: ApplicationConfig, weeks: int = 1) -> str:
     config.validate()
     token = get_secret(secret_key_name=config.secret_key_name)  # pyright: ignore[reportArgumentType]
     return jwt.encode(
-        {"exp": datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(weeks=weeks)},
+        {"exp": datetime.datetime.now(tz=datetime.UTC) + datetime.timedelta(weeks=weeks)},
         token,
         algorithm="HS256",
     )
@@ -54,7 +53,7 @@ credentials "{hostmane}" {{
 
 
 def get_secret(secret_key_name: str):
-    secret_value_response = client("secretsmanager").get_secret_value(SecretId=secret_key_name)
+    secret_value_response = secretsmanager().get_secret_value(SecretId=secret_key_name)
     return (
         secret_value_response["SecretString"]
         if "SecretString" in secret_value_response

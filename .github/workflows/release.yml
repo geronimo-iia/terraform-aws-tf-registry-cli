@@ -21,7 +21,7 @@ jobs:
     environment: pypi
     strategy:
       matrix:
-        python-version: ['3.9']
+        python-version: ['3.11']
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -34,11 +34,11 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
-          version: "0.5.18"    
+          version: "0.11.13"
       - name: Install dependencies
         run: make install 
       - name: Build and publish to pypi
-        run: uv run poe publish
+        run: make publish
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -55,5 +55,5 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
       - name: Build and publish Documentation
         run: |
-            uv run poe docs
-            uv run poe docs-publish
+            make docs
+            make docs-publish

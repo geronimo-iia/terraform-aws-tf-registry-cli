@@ -31,6 +31,8 @@ The [AWS Terraform Private Registry](https://github.com/geronimo-iia/terraform-a
 Install this library directly into an activated virtual environment:
 
 ```text
+$ uv tool install aws_terraform_registry
+or
 $ python3 -m pip install aws_terraform_registry
 ```
 
