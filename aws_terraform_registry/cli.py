@@ -1,6 +1,6 @@
 import argparse
 
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 
 from .common import (
     TerraformModuleIdentifier,
@@ -19,7 +19,7 @@ __all__ = ["main"]
 def main():
     """Main entry point."""
     init_root_logger()
-    load_dotenv()
+    load_dotenv(find_dotenv(usecwd=True))
     config: ApplicationConfig = ApplicationConfig.lookup()
 
     parser = build_parser(config)

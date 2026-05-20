@@ -41,3 +41,5 @@ coverage.xml
 
 # OSX
 .DS_Store
+
+.env_*

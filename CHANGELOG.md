@@ -1,6 +1,11 @@
 # Change Log
 
 
+## 1.3.1
+
+- Fix package build: include `common` subpackage in setuptools discovery
+- Fix `.env` loading: use `find_dotenv(usecwd=True)` so the `.env` file is found from the working directory when installed as a uv tool
+
 ## 1.3.0
 
 - Add support for python 3.12, 3.13, remove support python 3.9 and 3.10
